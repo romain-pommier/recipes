@@ -1,0 +1,9 @@
+.jumbotron,.jumbotron h1 {
+    color: white!important;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+.jumbotron{
+    background-image: url("/background/mexican-2456038.jpg") ;
+    background-size: cover;
+    background-position:center center ;
+}

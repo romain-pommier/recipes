@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une recettes !{% endblock %}
+
+{% form_theme form 'recipe/_collection.html.twig' %}
+
+
+{% block body %}
+    <div class="container">
+        <h1>Créer une nouvelle annonces </h1>
+
+        {{ form_start(form) }}
+        {{ form_start(form) }}
+
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Information générales</h2>
+                    <hr>
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.slug) }}
+                    {{ form_row(form.cookingTime) }}
+                    {{ form_row(form.mealstyle) }}
+                    {{ form_row(form.people) }}
+                </div>
+                <div class="alert alert-light">
+                    <h2>Détails de la recette</h2>
+                    <hr>
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.content) }}
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Ingredient de la recette</h2>
+                    <hr>
+                    {{ form_row(form.ingredients) }}
+                </div>
+                <div class="alert alert-light">
+                    <h2>Image de la recette</h2>
+                    <hr>
+                    {{ form_row(form.coverImage) }}
+                    {{ form_row(form.recipePictures) }}
+
+                </div>
+            </div>
+
+        </div>
+        <div class="alert alert-success clearfix">
+            <h2 class="alert-heading">Sauvegarder la recette</h2>
+            <p>Ajouter la recette !</p>
+            <button class="btn btn-primary float-right" type="submit">Ajouter <i class="fas fa-check"></i></button>
+        </div>
+
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/recipe.js"></script>
+
+{% endblock %}
+

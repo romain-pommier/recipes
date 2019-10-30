@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée{% endblock %}
+{% block body %}
+    <div class="container">
+        <h1>Oups ! La page ne vous appartient pas!</h1>
+        <a href="{{ path('home') }}" class="btn btn-primary">Retour à l'acceuil</a>
+        <a href="{{ path('recipe_index') }}" class="btn btn-success">Nos recettes</a>
+
+    </div>
+{% endblock %}

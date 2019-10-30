@@ -1,0 +1,42 @@
+div.recipes-title h1, div.recipes-title p {
+    color: white !important;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+
+div.recipes-title{
+    padding: 2em;
+    background-size: cover !important;
+    background-position:center center !important;
+}
+
+div.container{
+    margin-top: 20px;
+}
+div.carousel-caption{
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+div.carousel-caption h5{
+    color: white;
+    font-weight: bold;
+}
+
+.avatar{
+    max-width: 128px;
+    max-height:128px;
+    border-radius: 50%;
+}
+
+.avatar-medium{
+    max-width: 64px;
+    max-height:64px;
+
+}
+.avatar-min{
+    max-width: 25px;
+    max-height: 25px;
+}
+span.rating i {
+    color: goldenrod;
+}

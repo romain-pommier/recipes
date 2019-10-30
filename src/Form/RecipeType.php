@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Recipe;
+use App\Form\ImageType;
+use function array_merge;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+
+
+class RecipeType extends ApplicationType
+{
+
+
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('title', TextType::class, $this->getConfiguration("Titre", "Tapez votre titre d'annonce"))
+            ->add('slug', TextType::class, $this->getConfiguration("Adresse URL", "Tapez l'adresse web (automatique)",[
+                'required' => false
+            ]))
+            ->add('coverImage', UrlType::class, $this->getConfiguration("Url de l'image", "Donnez l'adresse d'une image qui donne envie"))
+            ->add('description', TextType::class, $this->getConfiguration("Description", "Donnez une description"))
+            ->add('content', TextareaType::class, $this->getConfiguration("Recette détaillée", "Tapez les instructions de votre recette"))
+            ->add('people', IntegerType::class, $this->getConfiguration("Nombre de personnes", "Indiuez le nombre de personne"))
+            ->add('cookingTime', IntegerType::class, $this->getConfiguration("temps de cuisson", "indiquer le temps de la cuisson"))
+            ->add('mealstyle', TextType::class, $this->getConfiguration("Type de plat", "Indiquer la famille du plat"))
+            ->add('ingredients', CollectionType::class, ['entry_type' => IngredientType::class,'allow_add' => true, 'allow_delete' => true])
+            ->add('recipePictures', CollectionType::class, ['entry_type' => ImageType::class,'allow_add' => true, 'allow_delete' => true]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Recipe::class,
+        ]);
+    }
+}
+
+
+

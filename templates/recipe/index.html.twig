@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les recettes !{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <h1 class="my-3">Voici nos recettes</h1>
+        <div class="row">
+            {% for recipe in recipes %}
+                {% include 'recipe/_recipe.html.twig' %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+

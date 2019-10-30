@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Edition d'une recette{% endblock %}
+
+{% form_theme form 'recipe/_collection.html.twig' %}
+
+
+{% block body %}
+    <div class="container">
+        <h1>Modifier la recette : {{ recipe.title }}</h1>
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <button class="btn btn-primary" type="submit">Modifier la recette </button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    <script src="/js/recipe.js"></script>
+
+{% endblock %}
+
