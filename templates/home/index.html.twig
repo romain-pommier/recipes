@@ -17,14 +17,14 @@
                     <a class="btn btn-primary btn-lg" href="{{path('recipe_index')}}" role="button">Voir les recettes</a>
                 </p>
             </div>
-            <h2 class="h1 mt-3 mb-4">Les meuilleurs recettes</h2>
+            <h2 class="h1 mt-3 mb-4">Les meilleurs recettes</h2>
             <div class="row ">
                 {% for data in recipes %}
                     {% include 'recipe/_recipe.html.twig' with {'recipe': data.recipe} %}
                 {% endfor %}
             </div>
 
-            <h2 class="h1 mt-3 mb-4">Les meuilleurs rédacteurs</h2>
+            <h2 class="h1 mt-3 mb-4">Les meilleurs rédacteurs</h2>
             <div class="row" >
                 {% for data in users %}
                     <div class="col">

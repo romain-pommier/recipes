@@ -25,7 +25,7 @@ class UserRepository extends ServiceEntityRepository
             ->join('a.comments', 'c')
             ->select('u as user, AVG(c.rating) as avgRatings, COUNT(c) as sumComments')
             ->groupBy('u')
-            ->having('sumComments > 3')
+            ->having('sumComments > 2')
             ->orderBy('avgRatings', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
