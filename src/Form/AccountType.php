@@ -13,7 +13,7 @@ class AccountType extends AbstractType
     {
         $builder
             ->add('firstName')
-            ->add('lastName')
+            ->add('lastName',array('required' => false,))
             ->add('email')
             ->add('picture')
             ->add('introduction')

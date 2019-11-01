@@ -8,12 +8,50 @@
 {% block body %}
     <div class="container">
         <h1>Modifier la recette : {{ recipe.title }}</h1>
-
+        {{ form_start(form) }}
         {{ form_start(form) }}
 
-        {{ form_widget(form) }}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Information générales</h2>
+                    <hr>
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.cookingTime) }}
+                    {{ form_row(form.mealstyle) }}
+                    {{ form_row(form.people) }}
+                </div>
+                <div class="alert alert-light">
+                    <h2>Détails de la recette</h2>
+                    <hr>
+                    {{ form_row(form.description) }}
+                    {{ form_row(form.content) }}
+                </div>
+            </div>
 
-        <button class="btn btn-primary" type="submit">Modifier la recette </button>
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Ingredient de la recette</h2>
+                    <hr>
+                    {{ form_row(form.ingredients) }}
+                </div>
+                <div class="alert alert-light">
+                    <h2>Image de la recette</h2>
+                    <hr>
+                    {{ form_row(form.coverImage) }}
+                    {{ form_row(form.recipePictures) }}
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="alert alert-info clearfix">
+            <h2 class="alert-heading">Modifier la recette</h2>
+            <p>Modifier la recette !</p>
+            <button class="btn btn-primary float-right" type="submit">Modifier <i class="fas fa-check"></i></button>
+        </div>
+
 
         {{ form_end(form) }}
     </div>
