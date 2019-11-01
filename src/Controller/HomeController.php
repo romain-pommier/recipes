@@ -8,7 +8,11 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
+<<<<<<< HEAD
 //fze
+=======
+
+>>>>>>> e3acc50094072f20c19d27e3ee40c5de3feae992
 class HomeController extends AbstractController
 {
 
