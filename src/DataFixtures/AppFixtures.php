@@ -89,7 +89,7 @@ class AppFixtures extends Fixture
         //gestion recettes
         for($i = 1; $i <= 30; $i++){
             $recipe = new Recipe();
-            $title = $faker->sentence();
+            $title = $fakerFood->foodName();
             $coverImage = $faker->imageUrl(1000,350,'food');
             $description = $faker->paragraph(2);
             $content = '<p>' . join('</p><p>' , $faker->paragraphs(5)).'</p>';

@@ -45,7 +45,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      * @Assert\Url(message="Veuillez renseigner une URL valide pour votre avatar ")
      */
     private $picture;
@@ -100,6 +100,19 @@ class User implements UserInterface
 
     public function getFullName(){
         return "{$this->firstName} {$this->lastName}";
+    }
+
+    /**
+     * Permet d'initialiser l'avatar
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function initializeAvatar(){
+        if(empty($this->picture)){
+            dump('ploop');
+            $avatar = 'https://image.flaticon.com/icons/svg/21/21104.svg';
+            $this->picture = $avatar;
+        }
     }
 
     /**

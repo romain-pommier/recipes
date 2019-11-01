@@ -7,6 +7,7 @@ use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function nl2br;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
@@ -190,7 +191,7 @@ class Recipe
 
     public function setContent(string $content): self
     {
-        $this->content = $content;
+        $this->content = nl2br($content);
 
         return $this;
     }
