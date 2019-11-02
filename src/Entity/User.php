@@ -110,7 +110,7 @@ class User implements UserInterface
     public function initializeAvatar(){
         if(empty($this->picture)){
             dump('ploop');
-            $avatar = 'https://image.flaticon.com/icons/svg/21/21104.svg';
+            $avatar = '';
             $this->picture = $avatar;
         }
     }
