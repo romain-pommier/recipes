@@ -3,10 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RecipePictureRepository")
+ * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks()
  */
 class RecipePicture
 {
@@ -19,9 +24,16 @@ class RecipePicture
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url()
+     * @var string|null
      */
-    private $url;
+    private $recipePictureName;
+    /**
+     * @var File|null
+     * @Assert\Image(mimeTypes="image/jpeg", mimeTypesMessage="Le format de l'image n'est pas valide")
+     * @vich\UploadableField(mapping="recipe_picture", fileNameProperty="recipePictureName")
+     */
+    private $recipePictureFile;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -36,22 +48,16 @@ class RecipePicture
      */
     private $recipe;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(string $url): self
-    {
-        $this->url = $url;
-
-        return $this;
-    }
 
     public function getCaption(): ?string
     {
@@ -76,4 +82,54 @@ class RecipePicture
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getRecipePictureName()
+    {
+        return $this->recipePictureName;
+    }
+
+    /**
+     * @param string|null $recipePictureName
+     */
+    public function setRecipePictureName($recipePictureName)
+    {
+        $this->recipePictureName = $recipePictureName;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getRecipePictureFile()
+    {
+        return $this->recipePictureFile;
+    }
+
+    /**
+     * @param File|null $recipePictureFile
+     */
+    public function setRecipePictureFile($recipePictureFile = null)
+    {
+        $this->recipePictureFile = $recipePictureFile;
+        //débug vich_uploader changement de la date de modification pour la persistance
+        if ($this->recipePictureFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+
 }

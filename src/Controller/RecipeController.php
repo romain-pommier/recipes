@@ -11,6 +11,7 @@ use App\Form\CommentType;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -141,7 +142,8 @@ class RecipeController extends AbstractController
      * @Security("is_granted('ROLE_USER') and user === recipe.getAuthor()", message="Vous ne pouvez pas modifier cette recette")
      */
     public function edit(Recipe $recipe, Request $request, ObjectManager $manager ){
-
+        $path = $recipe->getCoverImageName();
+        $test = new File($this->getParameter('coverImagePath').'/'.$path);
         $form = $this->createForm(RecipeType::class, $recipe);
 
         $form->handleRequest($request);
@@ -166,9 +168,11 @@ class RecipeController extends AbstractController
             ]);
         }
 
+
         return $this->render('recipe/edit.html.twig', [
             'form' => $form->createView(),
             'recipe' => $recipe,
+            'test' => $test
         ]);
     }
 

@@ -28,6 +28,8 @@
                     {{ form_row(form.content) }}
                 </div>
             </div>
+            {{ dump(form) }}
+            {{ dump(test) }}
 
             <div class="col">
                 <div class="alert alert-light">
@@ -38,7 +40,7 @@
                 <div class="alert alert-light">
                     <h2>Image de la recette</h2>
                     <hr>
-                    {{ form_row(form.coverImageFile) }}
+                    {{ form_row(form.coverImageFile,{'file':test}) }}
                     {{ form_row(form.recipePictures) }}
 
                 </div>

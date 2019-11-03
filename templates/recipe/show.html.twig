@@ -9,8 +9,9 @@
         {% if recipe.coverImageName starts with 'http' %}
             <div class="recipes-title" style="background-image: url({{ recipe.coverImageName }}">
             {% else %}
-                <div class="recipes-title" style="background-image: url(/images/coverimage/{{ recipe.coverImageName }})">
+                <div class="recipes-title" style="background-image:url(/images/coverimage/{{ recipe.coverImageName }} ">
         {% endif %}
+{#    url({{ vich_uploader_asset(recipe, 'coverImageFile') }})#}
 
         <div class="container">
             <h1>{{ recipe.title}}</h1>
@@ -26,6 +27,8 @@
             {% endif %}
         </div>
     </div>
+
+
     <div class="container">
         <div class="row">
 
@@ -47,7 +50,12 @@
                     <div class="carousel-inner">
                         {% for image in recipe.recipePictures %}
                             <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                <img class="d-block w-100" src="{{ image.url }}" alt="First slide">
+                                {% if image.recipePictureName starts with 'http'%}
+                                    <img class="d-block img_carousel" src="{{ image.recipePictureName }}" alt="First slide">
+                                    {% else %}
+                                        <img class="d-block w-100 img_carousel " src="{{vich_uploader_asset(image,'recipePictureFile')   }}" alt="First slide">
+                                {% endif %}
+
                                 <div class="carousel-caption d-none d-md-block">
                                     <h5>{{ recipe.title }}</h5>
                                     <p>{{ image.caption }}</p>

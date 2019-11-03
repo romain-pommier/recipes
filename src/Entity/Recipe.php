@@ -74,6 +74,7 @@ class Recipe
 
     /**
      * @var File|null
+     * @Assert\Image(mimeTypes="image/jpeg", mimeTypesMessage="Le format de l'image n'est pas valide")
      * @vich\UploadableField(mapping="recipe_coverimage", fileNameProperty="coverImageName")
      */
     private $coverImageFile;

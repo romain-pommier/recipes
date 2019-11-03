@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\RecipePicture;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,9 +15,9 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('url', UrlType::class, [
+            ->add('recipePictureFile', FileType::class, [
                 'attr' => [
-                    'placeholder' => "URL de l'image"
+                    'placeholder' => "Choisissez une image"
                 ]
             ])
             ->add('caption', TextType::class, [
