@@ -14,8 +14,15 @@
         </a>
 
         <a href="{{ url }}" >
-            <img src="{{ recipe.coverImage }}" alt="image de la recette"
+
+            {% if recipe.coverImageName starts with 'http' %}
+            <img src="{{ recipe.coverImageName }}" alt="image de la recette"
                  style="height : 200px; width: 100%; display: block">
+                {% else %}
+                <img src="/images/coverimage/{{ recipe.coverImageName }}" alt="image de la recette"
+                 style="height : 200px; width: 100%; display: block">
+            {% endif %}
+
         </a>
         <div class="card-body">
             <h4 class="card-title">

@@ -1,0 +1,17 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        recipe_coverimage:
+            uri_prefix: /images/coverimage
+            upload_destination: '%kernel.project_dir%/public/images/coverimage'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+
+
+
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'

@@ -7,6 +7,7 @@ use App\Form\ImageType;
 use function array_merge;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,7 +26,7 @@ class RecipeType extends ApplicationType
         $builder
             ->add('title', TextType::class, $this->getConfiguration("Titre", "Tapez votre titre d'annonce"))
             //slug créer automatiquement -> entity
-            ->add('coverImage', UrlType::class, $this->getConfiguration("Url de l'image", "Donnez l'adresse d'une image qui donne envie"))
+            ->add('coverImageFile', FileType::class, $this->getConfiguration("Url de l'image", "Donnez l'adresse d'une image qui donne envie"))
             ->add('description', TextType::class, $this->getConfiguration("Description", "Donnez une description"))
             ->add('content', TextareaType::class, $this->getConfiguration("Recette détaillée", "Tapez les instructions de votre recette"))
             ->add('people', IntegerType::class, $this->getConfiguration("Nombre de personnes", "Indiuez le nombre de personne"))

@@ -8,10 +8,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use function nl2br;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RecipeRepository")
+ * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity(fields={"title"},
  *     message = "Une recette possède déjà ce titre, merci de le modifier")
@@ -64,10 +68,15 @@ class Recipe
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Url()
+     * @var string|null
      */
-    private $coverImage;
+    private $coverImageName;
 
+    /**
+     * @var File|null
+     * @vich\UploadableField(mapping="recipe_coverimage", fileNameProperty="coverImageName")
+     */
+    private $coverImageFile;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\RecipePicture", mappedBy="recipe", orphanRemoval=true)
@@ -91,6 +100,11 @@ class Recipe
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="recipe", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -232,18 +246,6 @@ class Recipe
         return $this;
     }
 
-    public function getCoverImage(): ?string
-    {
-        return $this->coverImage;
-    }
-
-    public function setCoverImage(string $coverImage): self
-    {
-        $this->coverImage = $coverImage;
-
-        return $this;
-    }
-
 
 
     /**
@@ -347,4 +349,60 @@ class Recipe
 
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getCoverImageName()
+    {
+        return $this->coverImageName;
+    }
+
+    /**
+     * @param string|null $coverImageName
+     */
+    public function setCoverImageName($coverImageName)
+    {
+        $this->coverImageName = $coverImageName;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getCoverImageFile()
+    {
+        return $this->coverImageFile;
+    }
+
+    /**
+     * @param File|null $coverImageFile
+     */
+    public function setCoverImageFile($coverImageFile = null)
+    {
+
+        $this->coverImageFile = $coverImageFile;
+        //débug vich_uploader changement de la date de modification pour la persistance
+        if ($this->coverImageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
+        }
+
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+
+
+
+
+
 }
