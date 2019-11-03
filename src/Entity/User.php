@@ -109,8 +109,7 @@ class User implements UserInterface
      */
     public function initializeAvatar(){
         if(empty($this->picture)){
-            dump('ploop');
-            $avatar = '';
+            $avatar = '/images/avatar/default_avatar2.png';
             $this->picture = $avatar;
         }
     }
@@ -176,7 +175,9 @@ class User implements UserInterface
 
     public function setPicture(?string $picture): self
     {
+
         $this->picture = $picture;
+
 
         return $this;
     }
