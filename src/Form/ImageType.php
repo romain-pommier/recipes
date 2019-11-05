@@ -14,13 +14,20 @@ class ImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('recipePictureFile', FileType::class, [
                 'attr' => [
-                    'placeholder' => "Choisissez une image"
-                ]
+                    'placeholder' => "Choisissez une image",
+
+                ],'required' => false
             ])
             ->add('caption', TextType::class, [
+                'attr' => [
+                    'placeholder' => "Titre de l'image"
+                ]
+            ])
+            ->add('recipePictureName', TextType::class, [
                 'attr' => [
                     'placeholder' => "Titre de l'image"
                 ]

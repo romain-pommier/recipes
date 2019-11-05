@@ -26,7 +26,7 @@ class RecipeType extends ApplicationType
         $builder
             ->add('title', TextType::class, $this->getConfiguration("Titre", "Tapez votre titre d'annonce"))
             //slug créer automatiquement -> entity
-            ->add('coverImageFile', FileType::class, $this->getConfiguration("Image Principale de votre recette", "Choisissez une image"))
+            ->add('coverImageFile', FileType::class, $this->getConfiguration("Image Principale de votre recette", "Choisissez une image",['required' => false]))
             ->add('description', TextType::class, $this->getConfiguration("Description", "Donnez une description"))
             ->add('content', TextareaType::class, $this->getConfiguration("Recette détaillée", "Tapez les instructions de votre recette"))
             ->add('people', IntegerType::class, $this->getConfiguration("Nombre de personnes", "Indiuez le nombre de personne"))

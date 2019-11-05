@@ -101,10 +101,6 @@ class RecipeController extends AbstractController
                 "Votre Commentaire a bien été enregistré"
             );
         }
-
-
-
-
         return $this->render('recipe/show.html.twig',[
             'recipe' => $recipe,
             'form' => $form->createView()
@@ -112,11 +108,6 @@ class RecipeController extends AbstractController
 
         ]);
     }
-
-
-
-
-
 
     /**
      * @Route("/recipes", name="recipe_index")
@@ -129,11 +120,7 @@ class RecipeController extends AbstractController
         return $this->render('recipe/index.html.twig', [
                     'controller_name' => 'RecipeController',
                     'recipes' => $recipes,
-
-
-
-
-        ]);
+            ]);
     }
 
     /**
@@ -142,15 +129,20 @@ class RecipeController extends AbstractController
      * @Security("is_granted('ROLE_USER') and user === recipe.getAuthor()", message="Vous ne pouvez pas modifier cette recette")
      */
     public function edit(Recipe $recipe, Request $request, ObjectManager $manager ){
-        $path = $recipe->getCoverImageName();
-        $test = new File($this->getParameter('coverImagePath').'/'.$path);
+
+        //récupération des nom des images coverImage && recipiepicture
+        $coverImagePath = $recipe->getCoverImageName();
+        $recipePicture = $recipe->getRecipePictures()->getValues();
+
         $form = $this->createForm(RecipeType::class, $recipe);
 
         $form->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid()){
+//
             foreach ($recipe->getRecipePictures() as $image){
-                $image->setRecipe($recipe);
+                //$image->setRecipe($recipe);
                 $manager->persist($image);
             }
             foreach ($recipe->getIngredients() as $ingredient){
@@ -172,7 +164,7 @@ class RecipeController extends AbstractController
         return $this->render('recipe/edit.html.twig', [
             'form' => $form->createView(),
             'recipe' => $recipe,
-            'test' => $test
+            'coverImagePath' => $coverImagePath,
         ]);
     }
 

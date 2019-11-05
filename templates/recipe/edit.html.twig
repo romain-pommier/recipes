@@ -7,6 +7,7 @@
 
 {% block body %}
     <div class="container">
+
         <h1>Modifier la recette : {{ recipe.title }}</h1>
         {{ form_start(form) }}
         {{ form_start(form) }}
@@ -28,9 +29,6 @@
                     {{ form_row(form.content) }}
                 </div>
             </div>
-            {{ dump(form) }}
-            {{ dump(test) }}
-
             <div class="col">
                 <div class="alert alert-light">
                     <h2>Ingredient de la recette</h2>
@@ -40,7 +38,7 @@
                 <div class="alert alert-light">
                     <h2>Image de la recette</h2>
                     <hr>
-                    {{ form_row(form.coverImageFile,{'file':test}) }}
+                    {{ form_row(form.coverImageFile,{'attr': {'placeholder':coverImagePath}}) }}
                     {{ form_row(form.recipePictures) }}
 
                 </div>
@@ -61,7 +59,9 @@
 
 
 {% block javascripts %}
+
     <script src="/build/js/recipe.js"></script>
+
 
 {% endblock %}
 

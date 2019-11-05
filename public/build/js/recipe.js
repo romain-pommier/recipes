@@ -1,8 +1,14 @@
 //Modification nom imput browser
-$(document).on('change', '.custom-file-input', function () {
-    let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-    $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
-});
+$(document).ready(function() {
+    $(document).on('change', '.custom-file-input', function () {
+        let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
+        $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
+    });
+})
+
+
+
+//Ajoute d'input
 $('#add-image').click(function(){
     addInputOnClick('#recipe_recipePictures')
 });
@@ -10,7 +16,7 @@ $('#add-ingredient').click(function(){
     addInputOnClick('#recipe_ingredients')
 });
 
-//Ajoute un input
+
 function addInputOnClick(target){
     //récupération le numéro des futurs champs que je vais créer
     const index = +$('#widgets-counter').val();
