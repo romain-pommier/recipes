@@ -137,10 +137,6 @@ class RecipeController extends AbstractController
         $coverImagePath = $recipe->getCoverImageName();
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
-        $recipePictureNames = getRecipePictures();
-
-
-
 
         if($form->isSubmitted() && $form->isValid()){
             foreach ($recipe->getRecipePictures() as $image){
@@ -168,7 +164,6 @@ class RecipeController extends AbstractController
             'form' => $form->createView(),
             'recipe' => $recipe,
             'coverImagePath' => $coverImagePath,
-            'recipePictureNames' => $recipePictureNames
         ]);
     }
 

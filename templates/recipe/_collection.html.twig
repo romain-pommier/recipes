@@ -1,6 +1,7 @@
 
 {% block _recipe_recipePictures_entry_row %}
     {{ form_widget(form) }}
+
 {% endblock %}
 
 {% block _recipe_recipePictures_widget %}
@@ -20,12 +21,12 @@
         <div class="row">
             <div class="col-10">
                 <div class="row">
-                    <div class="col-12">
-                        {{ dump(form.vars.data.id) }}
-                        {{ form_widget(form.recipePictureFile) }}
 
-                    </div>
-
+                    {% if form.caption.vars.value is empty  %}
+                        <div class="col-12">
+                            {{ form_widget(form.recipePictureFile) }}
+                        </div>
+                    {% endif %}
                     <div class="col-6 mt-2">
                         {{ form_widget(form.caption) }}
                         {{ form_errors(form.caption) }}
