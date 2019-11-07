@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\RecipePicture;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +19,7 @@ class ImageType extends AbstractType
         $builder
             ->add('recipePictureFile', FileType::class, [
                 'attr' => [
-                    'placeholder' => "Choisissez une image",
+                    'placeholder' => "Choisissez une image"
 
                 ],'required' => false
             ])
@@ -27,12 +28,8 @@ class ImageType extends AbstractType
                     'placeholder' => "Titre de l'image"
                 ]
             ])
-            ->add('recipePictureName', TextType::class, [
-                'attr' => [
-                    'placeholder' => "Titre de l'image"
-                ]
-            ])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

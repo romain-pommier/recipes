@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use function is_null;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -97,6 +98,7 @@ class RecipePicture
     public function setRecipePictureName($recipePictureName)
     {
         $this->recipePictureName = $recipePictureName;
+
     }
 
     /**
@@ -112,6 +114,7 @@ class RecipePicture
      */
     public function setRecipePictureFile($recipePictureFile = null)
     {
+
         $this->recipePictureFile = $recipePictureFile;
         //débug vich_uploader changement de la date de modification pour la persistance
         if ($this->recipePictureFile instanceof UploadedFile) {

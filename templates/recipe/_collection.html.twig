@@ -16,14 +16,14 @@
 
 
 {% block _recipe_recipePictures_entry_widget %}
-
     <div class="form-group mb-5" id="block_{{ id }}">
         <div class="row">
             <div class="col-10">
                 <div class="row">
                     <div class="col-12">
-                        {{ form_widget(form.recipePictureFile,{'attr': {'placeholder': form.recipePictureName.vars.value}}) }}
-                        {{ form_errors(form.recipePictureFile) }}
+                        {{ dump(form.vars.data.id) }}
+                        {{ form_widget(form.recipePictureFile) }}
+
                     </div>
 
                     <div class="col-6 mt-2">

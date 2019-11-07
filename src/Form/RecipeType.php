@@ -33,7 +33,7 @@ class RecipeType extends ApplicationType
             ->add('cookingTime', IntegerType::class, $this->getConfiguration("temps de cuisson", "indiquer le temps de la cuisson"))
             ->add('mealstyle', TextType::class, $this->getConfiguration("Type de plat", "Indiquer la famille du plat"))
             ->add('ingredients', CollectionType::class, ['entry_type' => IngredientType::class,'allow_add' => true, 'allow_delete' => true])
-            ->add('recipePictures', CollectionType::class, ['entry_type' => ImageType::class,'allow_add' => true, 'allow_delete' => true]);
+            ->add('recipePictures', CollectionType::class, ['entry_type' => ImageType::class,'allow_add' => true, 'allow_delete' => true,'attr'=>['class'=>'test']]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -11,6 +11,9 @@ use App\Form\CommentType;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
+use function count;
+use function dump;
+use function is_null;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -132,19 +135,19 @@ class RecipeController extends AbstractController
 
         //récupération des nom des images coverImage && recipiepicture
         $coverImagePath = $recipe->getCoverImageName();
-        $recipePicture = $recipe->getRecipePictures()->getValues();
-
         $form = $this->createForm(RecipeType::class, $recipe);
-
         $form->handleRequest($request);
+        $recipePictureNames = getRecipePictures();
+
+
 
 
         if($form->isSubmitted() && $form->isValid()){
-//
             foreach ($recipe->getRecipePictures() as $image){
-                //$image->setRecipe($recipe);
-                $manager->persist($image);
+               $image->setRecipe($recipe);
+               $manager->persist($image);
             }
+
             foreach ($recipe->getIngredients() as $ingredient){
                 $ingredient->addRecipe($recipe);
                 $manager->persist($ingredient);
@@ -165,6 +168,7 @@ class RecipeController extends AbstractController
             'form' => $form->createView(),
             'recipe' => $recipe,
             'coverImagePath' => $coverImagePath,
+            'recipePictureNames' => $recipePictureNames
         ]);
     }
 

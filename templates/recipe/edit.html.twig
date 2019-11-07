@@ -38,7 +38,11 @@
                 <div class="alert alert-light">
                     <h2>Image de la recette</h2>
                     <hr>
+                    {% if coverImagePath == "" %}
+                    {{ form_row(form.coverImageFile)}}
+                    {% else %}
                     {{ form_row(form.coverImageFile,{'attr': {'placeholder':coverImagePath}}) }}
+                    {% endif %}
                     {{ form_row(form.recipePictures) }}
 
                 </div>

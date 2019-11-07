@@ -60,6 +60,9 @@ strong{
 .carousel-item{
     max-height: 17vw;
 }
+.col-form-label{
+    display: none;
+}
 
 
 
