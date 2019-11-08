@@ -1,0 +1,6 @@
+ssh u96637599@access775117966.webspace-data.io
+
+
+alias composer="/usr/bin/php7.1-cli composer.phar"
+alias php="/usr/bin/php7.1-cli"
+
