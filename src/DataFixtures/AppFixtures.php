@@ -108,8 +108,6 @@ class AppFixtures extends Fixture
                     ->setCookingTime(mt_rand(10,240))
                     ->setAuthor($user)
                     ->setCoverImageName($fakePictureName);
-            $recipe->setCoverImageFile(new File('C:\Users\romai\Desktop\Bureau\Cours DEV web\PROJET\PomsRecipes\PomsRecipes\public\images\coverimage\defaultFood'.mt_rand(1,12).".jpg"));
-
 
 
 
@@ -118,9 +116,8 @@ class AppFixtures extends Fixture
             for($j = 1; $j <= mt_rand(2,5); $j++){
                 $image = new RecipePicture();
                 $fakePictureName = 'defaultFood'.mt_rand(1,12).'.jpg';
-                $image->setCaption($faker->sentence())
-                    ->setRecipe($recipe)
-                    ->setRecipePictureFile(new File('/images/recipe_picture/defaultFood'.mt_rand(1,12).".jpg"));
+                $image->setCaption($faker->sentence());
+                $image->setRecipe($recipe);
                 $image->setRecipePictureName($fakePictureName);
 
                 $manager->persist($image);
