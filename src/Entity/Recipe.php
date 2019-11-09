@@ -107,6 +107,16 @@ class Recipe
      */
     private $updatedAt;
 
+    /**
+     * Automatisation ajout date commentaire
+     * @ORM\PrePersist
+     */
+    public function prePresist(){
+        if(empty($this->updatedAt)){
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
     public function __construct()
     {
         $this->recipePictures = new ArrayCollection();

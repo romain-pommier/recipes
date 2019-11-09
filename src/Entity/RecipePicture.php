@@ -54,6 +54,18 @@ class RecipePicture
      */
     private $updatedAt;
 
+
+
+    /**
+     * Automatisation ajout date commentaire
+     * @ORM\PrePersist
+     */
+    public function prePresist(){
+        if(empty($this->updatedAt)){
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

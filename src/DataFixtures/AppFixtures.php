@@ -13,7 +13,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Provider\DateTime;
+use function mt_rand;
 use function set_include_path;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
@@ -97,23 +99,29 @@ class AppFixtures extends Fixture
             $cookingTime = $faker->time($format = 'H:i:s', $max = 'now');
 
             $user = $users[mt_rand(0, count($users) -1)];
-
+            $fakePictureName = 'defaultFood'.mt_rand(1,12).'.jpg';
             $recipe->setTitle($title)
-                ->setDescription($description)
-                ->setCoverImage($coverImage)
-                ->setContent($content)
-                ->setPeople(mt_rand(1,8))
-                ->setMealStyle($mealStyle)
-                ->setCookingTime(mt_rand(10,240))
-                ->setAuthor($user);
+                    ->setDescription($description)
+                    ->setContent($content)
+                    ->setPeople(mt_rand(1,8))
+                    ->setMealStyle($mealStyle)
+                    ->setCookingTime(mt_rand(10,240))
+                    ->setAuthor($user)
+                    ->setCoverImageName($fakePictureName);
+            $recipe->setCoverImageFile(new File('C:\Users\romai\Desktop\Bureau\Cours DEV web\PROJET\PomsRecipes\PomsRecipes\public\images\coverimage\defaultFood'.mt_rand(1,12).".jpg"));
+
+
+
+
 
 
             for($j = 1; $j <= mt_rand(2,5); $j++){
                 $image = new RecipePicture();
-
-                $image->setUrl($faker->imageUrl(1000,350,'food'))
-                    ->setCaption($faker->sentence())
-                    ->setRecipe($recipe);
+                $fakePictureName = 'defaultFood'.mt_rand(1,12).'.jpg';
+                $image->setCaption($faker->sentence())
+                    ->setRecipe($recipe)
+                    ->setRecipePictureFile(new File('/images/recipe_picture/defaultFood'.mt_rand(1,12).".jpg"));
+                $image->setRecipePictureName($fakePictureName);
 
                 $manager->persist($image);
             }
