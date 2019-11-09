@@ -4,6 +4,7 @@ div.recipes-title h1, div.recipes-title p {
 }
 
 
+
 div.recipes-title{
     padding: 2em;
     background-size: cover !important;
@@ -11,11 +12,12 @@ div.recipes-title{
 }
 
 div.container{
-    margin-top: 20px;
+    margin-top: 100px;
 }
 div.carousel-caption{
     text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
+
 
 div.carousel-caption h5{
     color: white;
@@ -62,6 +64,14 @@ strong{
 }
 .col-form-label{
     display: none;
+}
+@media (min-width: 300px) and (max-width: 800px) {
+    .jumbotron h1{
+        font-size: 40px!important;
+    }
+    .container{
+        padding: 5px;
+    }
 }
 
 
