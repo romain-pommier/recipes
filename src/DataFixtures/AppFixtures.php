@@ -107,7 +107,7 @@ class AppFixtures extends Fixture
                     ->setMealStyle($mealStyle)
                     ->setCookingTime(mt_rand(10,240))
                     ->setAuthor($user)
-                    ->setCoverImageName($fakePictureName);
+                    ->setCoverImageName($coverImage);
 
 
 
@@ -115,7 +115,7 @@ class AppFixtures extends Fixture
 
             for($j = 1; $j <= mt_rand(2,5); $j++){
                 $image = new RecipePicture();
-                $fakePictureName = 'defaultFood'.mt_rand(1,12).'.jpg';
+                $fakePictureName = $faker->imageUrl(1000,350,'food');
                 $image->setCaption($faker->sentence());
                 $image->setRecipe($recipe);
                 $image->setRecipePictureName($fakePictureName);
