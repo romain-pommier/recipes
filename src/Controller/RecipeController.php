@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\MealStyle;
 use App\Entity\Recipe;
 use App\Entity\RecipePicture;
 use App\Entity\Ingredient;
@@ -41,10 +42,8 @@ class RecipeController extends AbstractController
      */
     public function create ( Request $request, ObjectManager $manager){
         $recipe = new Recipe();
-
-
+        $mealStyle = new MealStyle();
         $ingredient = new Ingredient();
-
 
         $form = $this->createForm(RecipeType::class, $recipe);
 
@@ -58,6 +57,10 @@ class RecipeController extends AbstractController
             foreach ($recipe->getIngredients() as $ingredient){
                 $ingredient->addRecipe($recipe);
                 $manager->persist($ingredient);
+            }
+            foreach ($recipe->getMealStyles() as $mealStyle){
+                $mealStyle->addRecipe($recipe);
+                $manager->persist($mealStyle);
             }
 
             $recipe->setAuthor($this->getUser());

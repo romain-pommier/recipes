@@ -61,10 +61,6 @@ class Recipe
      */
     private $cookingTime;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $mealStyle;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -108,6 +104,11 @@ class Recipe
     private $updatedAt;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\MealStyle", mappedBy="recipe")
+     */
+    private $mealStyles;
+
+    /**
      * Automatisation ajout date commentaire
      * @ORM\PrePersist
      */
@@ -122,6 +123,7 @@ class Recipe
         $this->recipePictures = new ArrayCollection();
         $this->ingredients = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->mealStyles = new ArrayCollection();
     }
 
 
@@ -245,17 +247,7 @@ class Recipe
         return $this;
     }
 
-    public function getMealStyle(): ?string
-    {
-        return $this->mealStyle;
-    }
 
-    public function setMealStyle(string $mealStyle): self
-    {
-        $this->mealStyle = $mealStyle;
-
-        return $this;
-    }
 
 
 
@@ -289,6 +281,10 @@ class Recipe
 
         return $this;
     }
+
+
+
+
 
     /**
      * @return Collection|Ingredient[]
@@ -407,6 +403,34 @@ class Recipe
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MealStyle[]
+     */
+    public function getMealStyles(): Collection
+    {
+        return $this->mealStyles;
+    }
+
+    public function addMealStyle(MealStyle $mealStyle): self
+    {
+        if (!$this->mealStyles->contains($mealStyle)) {
+            $this->mealStyles[] = $mealStyle;
+            $mealStyle->addRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMealStyle(MealStyle $mealStyle): self
+    {
+        if ($this->mealStyles->contains($mealStyle)) {
+            $this->mealStyles->removeElement($mealStyle);
+            $mealStyle->removeRecipe($this);
+        }
 
         return $this;
     }

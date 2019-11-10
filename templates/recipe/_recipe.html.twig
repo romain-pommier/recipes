@@ -36,7 +36,10 @@
             <a class="btn btn-primary float-right" href="{{ url }}" >En savoir plus</a>
             {% if app.user and app.user == recipe.author %}
                 <a href="{{ path('recipes_edit', {'slug': recipe.slug}) }}" class="btn btn-secondary">Modifier la recette</a>
+                <a href="{{ path('recipes_delete', {'slug': recipe.slug}) }}" class="btn btn-danger" onclick="return confirm(`Voulez vous supprimer la recette : {{ recipe.title }} ?`)">Supprimer</a>
+
             {% endif %}
+
         </div>
     </div>
 </div>

@@ -15,6 +15,9 @@ $('#add-image').click(function(){
 $('#add-ingredient').click(function(){
     addInputOnClick('#recipe_ingredients')
 });
+$('#add-mealStyle').click(function(){
+    addInputOnClick('#recipe_mealstyles')
+});
 
 
 function addInputOnClick(target){
@@ -52,5 +55,6 @@ function updateCounter(target){
 
 updateCounter('#recipe_recipePictures');
 updateCounter('#recipe_ingredients');
+updateCounter('#recipe_mealstyles');
 
 handleDeleteButtons();

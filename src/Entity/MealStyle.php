@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\IngredientRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\MealStyleRepository")
  */
-class Ingredient
+class MealStyle
 {
     /**
      * @ORM\Id()
@@ -21,22 +21,12 @@ class Ingredient
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Recipe", inversedBy="ingredients")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Recipe", inversedBy="mealStyles")
      */
     private $recipe;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $unit;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $quantity;
 
     public function __construct()
     {
@@ -48,14 +38,14 @@ class Ingredient
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getType(): ?string
     {
-        return $this->name;
+        return $this->type;
     }
 
-    public function setName(string $name): self
+    public function setType(string $type): self
     {
-        $this->name = $name;
+        $this->type = $type;
 
         return $this;
     }
@@ -82,30 +72,6 @@ class Ingredient
         if ($this->recipe->contains($recipe)) {
             $this->recipe->removeElement($recipe);
         }
-
-        return $this;
-    }
-
-    public function getunit(): ?string
-    {
-        return $this->unit;
-    }
-
-    public function setunit(string $unit): self
-    {
-        $this->unit = $unit;
-
-        return $this;
-    }
-
-    public function getquantity(): ?float
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(float $quantity): self
-    {
-        $this->quantity = $quantity;
 
         return $this;
     }

@@ -19,7 +19,6 @@
                     <hr>
                     {{ form_row(form.title) }}
                     {{ form_row(form.cookingTime) }}
-                    {{ form_row(form.mealstyle) }}
                     {{ form_row(form.people) }}
                 </div>
                 <div class="alert alert-light">
@@ -30,6 +29,11 @@
                 </div>
             </div>
             <div class="col">
+                <div class="alert alert-light">
+                    <h2>Type de la recette</h2>
+                    <hr>
+                    {{ form_row(form.mealstyles) }}
+                </div>
                 <div class="alert alert-light">
                     <h2>Ingredient de la recette</h2>
                     <hr>

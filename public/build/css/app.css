@@ -2,6 +2,9 @@ div.recipes-title h1, div.recipes-title p {
     color: white !important;
     text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
+.bg-light:hover{
+    background-color:rgba(255,255,255) !important;
+}
 
 
 
@@ -65,12 +68,23 @@ strong{
 .col-form-label{
     display: none;
 }
+#recipe_content{
+    height: 350px;
+
+}
+
+
+
+
 @media (min-width: 300px) and (max-width: 800px) {
     .jumbotron h1{
         font-size: 40px!important;
     }
     .container{
         padding: 5px;
+    }
+    .bg-light{
+        background-color:rgba(255,255,255,0.93) !important;
     }
 }
 
