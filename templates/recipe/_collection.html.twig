@@ -28,6 +28,7 @@
                         </div>
                     {% endif %}
                     <div class="col-6 mt-2">
+                        <img src="/images/recipe_picture/{{ form.recipePictureName.vars.value }} " alt="" class="recipe_picture_edit_icon">
                         {{ form_widget(form.caption) }}
                         {{ form_errors(form.caption) }}
                     </div>

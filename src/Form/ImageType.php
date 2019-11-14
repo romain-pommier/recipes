@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\RecipePicture;
+use App\Repository\RecipePictureRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -27,6 +28,9 @@ class ImageType extends AbstractType
                 'attr' => [
                     'placeholder' => "Titre de l'image"
                 ]
+            ])
+            ->add('recipePictureName', TextType::class,[
+                'disabled'=>true
             ])
         ;
 
