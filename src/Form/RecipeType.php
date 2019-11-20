@@ -33,7 +33,7 @@ class RecipeType extends ApplicationType
             ->add('content', TextareaType::class, $this->getConfiguration("Recette détaillée:", "Tapez les instructions de votre recette"))
             ->add('people', IntegerType::class, $this->getConfiguration("Nombre de personnes:", "Indiuez le nombre de personne"))
             ->add('cookingTime', IntegerType::class, $this->getConfiguration("Temps de cuisson:", "indiquer le temps de la cuisson"))
-            ->add('mealstyles', CollectionType::class,['entry_type' => MealStyleType::class, 'allow_add' => true, 'allow_delete' => true])
+            ->add('mealstyles',CollectionType::class, ['entry_type' => MealStyleType::class,'allow_add' => true, 'allow_delete' => true])
             ->add('ingredients', CollectionType::class, ['entry_type' => IngredientType::class,'allow_add' => true, 'allow_delete' => true])
             ->add('recipePictures', CollectionType::class, ['entry_type' => ImageType::class,'allow_add' => true, 'allow_delete' => true]);
     }

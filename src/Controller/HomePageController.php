@@ -11,6 +11,8 @@ use App\Form\CommentType;
 use App\Form\RecipeType;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
+use function count;
+use function dump;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -29,9 +31,9 @@ class HomePageController extends AbstractController
      * @Route("/", name="home")
      */
     public function home(RecipeRepository $recipeRepository, UserRepository $userRepository){
-        $recipes = $recipeRepository->findBestRecipes(3);
-        $users = $userRepository->findBestUsers(2);
-
+        $recipes = $recipeRepository->findBestRecipes();
+        $users = $userRepository->findBestUsers();
+        dump(count($recipes),$recipes);
         return $this->render('home/index.html.twig',[
             'recipes' => $recipes,
             'users' => $users

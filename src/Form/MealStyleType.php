@@ -17,7 +17,10 @@ class MealStyleType extends AbstractType
                 'Entrée'=> "Entrée",
                 'Plat' => "Plat",
                 'Dessert' => "Dessert"
-                ]
+                ],
+                "expanded" => true,
+                "multiple" => true,
+
             ])
         ;
     }

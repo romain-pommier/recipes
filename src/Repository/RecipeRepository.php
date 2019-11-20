@@ -19,13 +19,13 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
-    public function findBestRecipes($limit ){
+    public function findBestRecipes(){
         return $this->createQueryBuilder('a')
             ->select('a as recipe, AVG(c.rating) as avgRatings')
             ->join('a.comments', 'c')
             ->groupBy('a')
             ->orderBy('avgRatings', 'DESC')
-            ->setMaxResults($limit)
+            ->setMaxResults(2)
             ->getQuery()
             ->getResult();
     }

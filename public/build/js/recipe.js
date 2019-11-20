@@ -1,3 +1,17 @@
+//initialisation size homePage
+let heightRecipeSection = $('.best-recipe').height();
+$('.best-author').height(heightRecipeSection);
+
+
+
+
+
+
+
+
+
+
+
 //Modification nom imput browser
 $(document).ready(function() {
     $(document).on('change', '.custom-file-input', function () {

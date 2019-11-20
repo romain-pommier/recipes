@@ -1,3 +1,75 @@
+body{
+    height: 100%;
+}
+
+/*******************************************************************************************************
+/*******************************************************************************************************
+/***********************************HOME_PAGE******************************************
+/*******************************************************************************************************
+/*******************************************************************************************************
+/*******************************************************************************************************/
+
+.jumbotron,.jumbotron h1 {
+    color: white!important;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+}
+
+.jumbotron{
+    height: 900px;
+    width: 100%;
+    background-image: url("/build/background/mexican-2456038.jpg") ;
+    background-size: cover;
+    background-position:center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.title-actuality{
+    font-size: 40px;
+}
+.underline-title{
+    background-color: rgb(232, 51, 40);
+    width: 3rem;
+    height: 0.25rem;
+    margin: 0 auto 2rem;
+}
+.jumbotron-item{
+    background-color: rgba(255,255,255,0.1);
+    position: absolute;
+    top: 22%;
+    right: 6%;
+}
+.recipe-exemple,.author-exemple {
+    display: flex;
+
+}
+
+
+.picture-best-recipe{
+    background-image: url("/build/background/hamburger.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+.picture-best-author{
+    background-image: url("/build/background/saumonausesame.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.home{
+    margin-top: 150px;
+}
+.home .row{
+    margin-right: 0!important;
+}
+
+
+
+
+
+
+
+
 div.recipes-title h1, div.recipes-title p {
     color: white !important;
     text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
@@ -15,7 +87,8 @@ div.recipes-title{
 }
 
 div.container{
-    margin-top: 100px;
+    margin-top: 50px;
+    height: 100%;
 }
 div.carousel-caption{
     text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
@@ -51,15 +124,6 @@ span.rating i {
 strong{
     font-weight: 900!important;
 
-}
-.jumbotron,.jumbotron h1 {
-    color: white!important;
-    text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
-}
-.jumbotron{
-    background-image: url("/build/background/mexican-2456038.jpg") ;
-    background-size: cover;
-    background-position:center center ;
 }
 
 .carousel-item{

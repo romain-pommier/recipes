@@ -7,9 +7,9 @@
 
 
     {% block body %}
-        <div class="container">
-            <div class="jumbotron mt-3">
-                <h1 class="display-3">Bienvenue sur Poms Recipes</h1>
+        <div class="jumbotron ">
+            <div class="jumbotron-item">
+                <h1 class="display-3" style="font-weight: lighter">Bienvenue sur <br><span style="font-weight: bold; color: beige">Poms Recipes</span></h1>
                 <p class="lead">Nous mettons en relations les recettes de cuisine afin de faire profiter tous le monde!!</p>
                 <hr class="my-4">
                 <p>Vous aimez les bon petits plats  ? Vous êtes en manque d'inspiration ?</p>
@@ -17,36 +17,60 @@
                     <a class="btn btn-primary btn-lg" href="{{path('recipe_index')}}" role="button">Voir les recettes</a>
                 </p>
             </div>
-            <h2 class="h1 mt-3 mb-4">Les meilleurs recettes</h2>
 
-            <div class="row ">
-                {% for data in recipes %}
-                    {% include 'recipe/_recipe.html.twig' with {'recipe': data.recipe} %}
-                {% endfor %}
+        </div>
+        <div class=" home">
+            <h2 class="title-actuality text-center mb-3"> Actualité </h2>
+            <div class="underline-title mb-5"></div>
+
+            <div class="recipe-exemple">
+                <div class="best-recipe mr-4">
+                    <h2 class="h1 mb-3 text-center ">Les meilleurs recettes</h2>
+
+                    <div class="row ">
+                        {% for data in recipes %}
+                            {% include 'recipe/_recipe.html.twig' with {'recipe': data.recipe} %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="picture-best-recipe row col-6">
+                </div>
+
             </div>
 
-            <h2 class="h1 mt-3 mb-4">Les meilleurs rédacteurs</h2>
-            <div class="row" >
-                {% for data in users %}
-                    <div class="col">
-                        <div class="card border-secondary mb-3">
-                            <div class="card-body">
-                                <h4 class="" card-title>{{ data.user.fullName }}</h4>
-                                <hr>
-                                <div class="card-text">
-                                    <img src="{{ data.user.picture }}" alt="Avatar de {{ data.user.fullName }}"
-                                         class="float-left mr-3">
-                                    <p>{{ data.user.introduction }}</p>
-                                    <a href="{{ path('user_show', {'slug': data.user.slug}) }}" class="btn btn-success float-right">En savoir plus.</a>
+
+            <div class="author-exemple">
+                <div class="picture-best-author col-6">
+                </div>
+                <div class="best-author col-6">
+                    <h2 class="h1 mb-3 mt-5 text-center">Les meilleurs rédacteurs</h2>
+                    <div class="row" >
+                        {% for data in users %}
+                            <div class="col-12 mb-3">
+                                <div class="card border-secondary ">
+                                    <div class="card-body">
+                                        <h4 class=" card-title d-flex align-items-center">{{ data.user.fullName }}</h4>
+                                        <hr>
+                                        <div class="card-text">
+                                            <img src="{{ data.user.picture }}" alt="Avatar de {{ data.user.fullName }}"
+                                                 class="float-left ">
+                                            <p>{{ data.user.introduction }}</p>
+                                            <a href="{{ path('user_show', {'slug': data.user.slug}) }}" class="btn btn-success float-right">En savoir plus.</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {% endfor %}
+
+
+
                     </div>
-                {% endfor %}
-
-
-
+                </div>
             </div>
+
+
+
+
 
         </div>
     {% endblock %}
