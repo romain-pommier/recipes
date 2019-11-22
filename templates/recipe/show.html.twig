@@ -7,7 +7,7 @@
 {% block body %}
 
         {% if recipe.coverImageName starts with 'http' %}
-            <div class="recipes-title" style="background-image: url({{ recipe.coverImageName }}">
+            <div class="recipes-title " style="background-image: url({{ recipe.coverImageName }}">
             {% else %}
                 <div class="recipes-title" style="background-image:url(/images/coverimage/{{ recipe.coverImageName }} ">
         {% endif %}

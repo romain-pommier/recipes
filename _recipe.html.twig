@@ -1,0 +1,45 @@
+{% set url =  path('recipes_show',{'slug':recipe.slug })  %}
+<div class="col-md-6 col-sm-12">
+    <div class="card bg-light mb-3">
+        <a href="{{ url }}">
+            <div class="card-header text-center">
+                {{ recipe.cookingTime }} Min , <strong>{{ recipe.people }} Personnes </strong><br>
+                {% if recipe.comments|length > 0 %}
+                    {% include 'partials/rating.html.twig' with {'rating': recipe.avgRatings} %}
+                {% else %}
+                    <small>Pas encore noté</small>
+                {% endif %}
+
+            </div>
+        </a>
+
+        <a href="{{ url }}" >
+
+            {% if recipe.coverImageName starts with 'http' %}
+            <img src="{{ recipe.coverImageName }}" alt="image de la recette"
+                 style="height : 200px; width: 100%; display: block">
+                {% else %}
+                <img src="/images/coverimage/{{ recipe.coverImageName }}" alt="image de la recette"
+                 style="height : 200px; width: 100%; display: block">
+            {% endif %}
+
+        </a>
+        <div class="card-body">
+            <h4 class="card-title">
+                <a href="{{ url }}">
+                    {{ recipe.title }}
+                </a>
+            </h4>
+            <p class="card-body">
+                {{ recipe.description }}
+            </p>
+            <a class="btn btn-primary float-right" href="{{ url }}" >En savoir plus</a>
+            {% if app.user and app.user == recipe.author %}
+                <a href="{{ path('recipes_edit', {'slug': recipe.slug}) }}" class="btn btn-secondary">Modifier la recette</a>
+                <a href="{{ path('recipes_delete', {'slug': recipe.slug}) }}" class="btn btn-danger" onclick="return confirm(`Voulez vous supprimer la recette : {{ recipe.title }} ?`)">Supprimer</a>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>

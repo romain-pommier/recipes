@@ -1,12 +1,3 @@
-//initialisation size homePage
-let heightRecipeSection = $('.best-recipe').height();
-$('.best-author').height(heightRecipeSection);
-
-
-
-
-
-
 
 
 
@@ -18,6 +9,9 @@ $(document).ready(function() {
         let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
         $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
     });
+    //initialisation size homePage
+    let heightRecipeSection = $('.best-recipe').height();
+    $('.picture-best-author').height(heightRecipeSection);
 })
 
 
