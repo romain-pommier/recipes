@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Comment;
 use App\Entity\Ingredient;
+use App\Entity\MealStyle;
 use App\Entity\Recipe;
 use App\Entity\RecipePicture;
 use App\Entity\Role;
@@ -99,12 +100,11 @@ class AppFixtures extends Fixture
             $cookingTime = $faker->time($format = 'H:i:s', $max = 'now');
 
             $user = $users[mt_rand(0, count($users) -1)];
-            $fakePictureName = 'defaultFood'.mt_rand(1,12).'.jpg';
+//            $fakePictureName = 'defaultFood'.mt_rand(1,12).'.jpg';
             $recipe->setTitle($title)
                     ->setDescription($description)
                     ->setContent($content)
                     ->setPeople(mt_rand(1,8))
-                    ->setMealStyle($mealStyle)
                     ->setCookingTime(mt_rand(10,240))
                     ->setAuthor($user)
                     ->setCoverImageName($coverImage);
@@ -115,7 +115,7 @@ class AppFixtures extends Fixture
 
             for($j = 1; $j <= mt_rand(2,5); $j++){
                 $image = new RecipePicture();
-                $fakePictureName = $faker->imageUrl(1000,350,'food');
+                $fakePictureName = $faker->imageUrl(1200,350,'food');
                 $image->setCaption($faker->sentence());
                 $image->setRecipe($recipe);
                 $image->setRecipePictureName($fakePictureName);
@@ -126,12 +126,25 @@ class AppFixtures extends Fixture
                 $ingredient = new Ingredient();
                 $random = mt_rand(0,3);
                 $nameFakerFood = [$fakerFood->dairyName(), $fakerFood->vegetableName(), $fakerFood->meatName(), $fakerFood->meatName()];
+                $unitFaker = ["Litre","Kilogramme","Pieces","Cuillère à soupe","Cuillère à café"];
+                $quantityFaker = mt_rand(1,6);
                 $resultMethod = $nameFakerFood[$random];
 
                 $ingredient->setName($resultMethod)
+                    ->setQuantity($quantityFaker)
+                    ->setUnit($unitFaker[mt_rand(0,4)])
                     ->addRecipe($recipe);
 
                 $manager->persist($ingredient);
+            }
+            $mealtype=["Entrée","Dessert","Plat"];
+            for($x =1; $x <= mt_rand(1,3); $x++){
+                $mealStyle = new MealStyle();
+                $fakeType = $mealtype[mt_rand(0,2)];
+                $mealStyle->setType($fakeType);
+                $mealStyle->addRecipe($recipe);
+                $manager->persist($mealStyle);
+
 
             }
 

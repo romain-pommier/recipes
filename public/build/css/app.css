@@ -78,14 +78,36 @@ body{
 .navbar-toggler{
     border: none!important;
 }
+.bg-light:hover{
+    background-color:rgba(255,255,255) !important;
+}
 
+/*******************************************************************************************************
+/*******************************************************************************************************
+/***********************************RECIPES SHOW******************************************
+/*******************************************************************************************************
+/*******************************************************************************************************
+/*******************************************************************************************************/
+
+.recipeShow ul{
+    list-style: none!important;
+    padding:0;
+}
+.ingredientMargerecipeShow{
+
+    background:linear-gradient(to bottom, #c1ccd6,white );
+}
+.ingredientMargerecipeShow h4{
+    color: white;
+}
+.ingredientMargerecipeShow {
+    color: black;
+}
 div.recipes-title h1, div.recipes-title p {
     color: white !important;
     text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
 }
-.bg-light:hover{
-    background-color:rgba(255,255,255) !important;
-}
+
 
 
 

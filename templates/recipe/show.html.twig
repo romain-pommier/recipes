@@ -11,7 +11,7 @@
             {% else %}
                 <div class="recipes-title" style="background-image:url(/images/coverimage/{{ recipe.coverImageName }} ">
         {% endif %}
-{#    url({{ vich_uploader_asset(recipe, 'coverImageFile') }})#}
+
 
         <div class="container">
             <h1>{{ recipe.title}}</h1>
@@ -29,130 +29,162 @@
     </div>
 
 
-    <div class="container">
+
+    <div class="container-fluid  recipeShow">
         <div class="row">
 
-            <div class="col-md-8 mb-3">
+{#------------------------------------ingredients && type && details ----------------------------------------            #}
+            <div class="col-2  ingredientMargerecipeShow">
+                <h4 class="mt-4">Ingrédients:</h4>
+                <p>Recettes pour <strong>{{ recipe.people }}</strong> personnes</p>
                 <ul>
                     {% for ingredient in recipe.ingredients %}
-                        <li><strong>{{  ingredient.name}}</strong> </li>
+                        {% set unit = "" %}
+
+                        {% if ingredient.unit == 'Kilogramme' %}
+                            {% set unit = 'kg' %}
+                        {% else %}
+                        {% endif %}
+                        <li><strong>-{{ ingredient.name}}</strong> : {{ ingredient.quantity }} {{ unit }}</li>
                     {% endfor %}
                 </ul>
-                {{ recipe.content | raw }}
+                <hr>
+                <h4>Type de plat:</h4>
+                <ul>
+                    {% for mealstyle in recipe.mealstyles %}
+                        <li>{{ mealstyle.type }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        {% for image in recipe.recipePictures %}
-                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
-                        {% endfor %}
+{#------------------------------------    CONTENT OF RECIPE-----------------------------------------#}
+            <div class="col-md-10 mt-5 mb-3">
+                <div>
+                    <h3>Préparations:</h3>
+                    {{ recipe.content | raw }}
+                </div>
 
-                    </ol>
-                    <div class="carousel-inner">
-                        {% for image in recipe.recipePictures %}
-                            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                                {% if image.recipePictureName starts with 'http'%}
-                                    <img class="d-block img_carousel" src="{{ image.recipePictureName }}" alt="First slide">
+
+
+{#--------------------------------------------------PICTURE AND PROFIL-------------------------------------------------------                #}
+                <div class="row mt-5">
+                    <div id="carouselExampleIndicators" class="carousel slide col-8" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            {% for image in recipe.recipePictures %}
+                                <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %}"></li>
+                            {% endfor %}
+
+                        </ol>
+                        <div class="carousel-inner">
+                            {% for image in recipe.recipePictures %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    {% if image.recipePictureName starts with 'http'%}
+                                        <img class="d-block img_carousel" src="{{ image.recipePictureName }}" alt="First slide">
                                     {% else %}
                                         <img class="d-block w-100 img_carousel " src="{{vich_uploader_asset(image,'recipePictureFile')   }}" alt="First slide">
-                                {% endif %}
+                                    {% endif %}
 
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>{{ recipe.title }}</h5>
-                                    <p>{{ image.caption }}</p>
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>{{ recipe.title }}</h5>
+                                        <p>{{ image.caption }}</p>
+                                    </div>
                                 </div>
-                            </div>
 
-                        {% endfor %}
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                <hr>
-                {% if recipe.comments|length > 0 %}
-                    <h2 class="mb-3">Commentaires </h2>
-                    <div class="alert alert-info">
-                        <h4 class="alert-heading text-center">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    Note globale:
-                                </div>
-                                <div class="col">
-                                    {% include 'partials/rating.html.twig' with {'rating': recipe.avgRatings}%}
-                                    <br>
-                                    <small>({{ recipe.comments | length }} Avis)</small>
-                                </div>
-                            </div>
-                        </h4>
-                    </div>
-                    {% for comment in recipe.comments %}
-                        <div class="bg-light rounded mb-3 py-3 px-3">
-                            <strong>{{ comment.author.fullName }}</strong>
-                            <blockquote>
-                                {{ comment.content }}
-                            </blockquote>
-                            <strong>Avis donnée :</strong>
-                            {% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
-
+                            {% endfor %}
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <h2>Cette recette n'a pas encore de commentaires</h2>
-                {% endif %}
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
 
-                <div class="alert alert-light">
-                    {% if app.user is not null %}
-                        {% set comment = recipe.getCommentFromAuthor(app.user) %}
 
-                        {% if comment is not null %}
-                            <h2 class="alert-heading">Votre commentaire</h2>
-                            <blockquote>
-                                {{ comment.content }}
-                            </blockquote>
-                            <stong>Note : </stong>{% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
 
-                        {% else %}
-                            <h2 class="alert-heading">Ajouter un commentaire</h2>
-                            {{ form_start(form) }}
-                            {{ form_widget(form) }}
-                            <button type="submit" class="btn btn-success">Ajouter</button>
-                            {{ form_end(form) }}
-                        {% endif %}
+                    <div class="col-md-4">
+                        {% set author = recipe.author %}
+                        <div class="row">
+                            <div class="col-3">
+                                <a href="{{ path('user_show', {'slug': author.slug}) }}">
+                                    <img src="{{ author.picture }}" class="avatar avatar-medium mb-4 " alt="Avatar de {{ author.fullName }}">
+                                </a>
 
+                            </div>
+                            <div class="col">
+                                <a href="{{ path('user_show', {'slug': author.slug}) }}">
+                                    <h3>{{ author.fullName }}</h3>
+                                </a>
+                                <span class="badge badge-primary">{{ author.recipes | length }} recettes</span>
+                            </div>
+                        </div>
+                        {{ author.description | raw }}
+                    </div>
+                </div>
+{#---------------------------------------------COMMENTARY----------------------------------------------------                #}
+                <div class="col-md-7">
+                    <hr>
+                    {% if recipe.comments|length > 0 %}
+                        <h2 class="mb-3">Commentaires </h2>
+                        <div class="alert alert-info">
+                            <h4 class="alert-heading text-center">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        Note globale:
+                                    </div>
+                                    <div class="col">
+                                        {% include 'partials/rating.html.twig' with {'rating': recipe.avgRatings}%}
+                                        <br>
+                                        <small>({{ recipe.comments | length }} Avis)</small>
+                                    </div>
+                                </div>
+                            </h4>
+                        </div>
+                        {% for comment in recipe.comments %}
+                            <div class="bg-light rounded mb-3 py-3 px-3">
+                                <strong>{{ comment.author.fullName }}</strong>
+                                <blockquote>
+                                    {{ comment.content }}
+                                </blockquote>
+                                <strong>Avis donnée :</strong>
+                                {% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+
+                            </div>
+                        {% endfor %}
                     {% else %}
-                        <h2 class="alert-heading">Si vous voulez commenter cette recette merci de bien vouloir vous connecter</h2>
-                        <button class="btn btn-info float-right ">
-                            <strong><a  style="color:white" href="{{ path('account_login') }}">Vous connecter <i class="fas fa-lock-open fa-2x ml-2 " ></i></a></strong>
-                        </button>
-
+                        <h2>Cette recette n'a pas encore de commentaires</h2>
                     {% endif %}
 
+                    <div class="alert alert-light">
+                        {% if app.user is not null %}
+                            {% set comment = recipe.getCommentFromAuthor(app.user) %}
+
+                            {% if comment is not null %}
+                                <h2 class="alert-heading">Votre commentaire</h2>
+                                <blockquote>
+                                    {{ comment.content }}
+                                </blockquote>
+                                <stong>Note : </stong>{% include 'partials/rating.html.twig' with {'rating': comment.rating} %}
+                            {% else %}
+                                <h2 class="alert-heading">Ajouter un commentaire</h2>
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                <button type="submit" class="btn btn-success">Ajouter</button>
+                                {{ form_end(form) }}
+                            {% endif %}
+                        {% else %}
+                            <h2 class="alert-heading">Si vous voulez commenter cette recette merci de bien vouloir vous connecter</h2>
+                            <button class="btn btn-info float-right ">
+                                <strong><a  style="color:white" href="{{ path('account_login') }}">Vous connecter <i class="fas fa-lock-open fa-2x ml-2 " ></i></a></strong>
+                            </button>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="col">
-                {% set author = recipe.author %}
-                <div class="row">
-                    <div class="col-3">
-                        <a href="{{ path('user_show', {'slug': author.slug}) }}">
-                            <img src="{{ author.picture }}" class="avatar avatar-medium mb-4 " alt="Avatar de {{ author.fullName }}">
-                        </a>
-
-                    </div>
-                    <div class="col">
-                        <a href="{{ path('user_show', {'slug': author.slug}) }}">
-                            <h3>{{ author.fullName }}</h3>
-                        </a>
-                        <span class="badge badge-primary">{{ author.recipes | length }} recettes</span>
-                    </div>
-                </div>
-                {{ author.description | raw }}
-            </div>
     </div>
 
 {% endblock %}

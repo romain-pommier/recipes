@@ -151,6 +151,10 @@ class RecipeController extends AbstractController
                 $ingredient->addRecipe($recipe);
                 $manager->persist($ingredient);
             }
+            foreach ($recipe->getMealStyles() as $mealStyle){
+                $mealStyle->addRecipe($recipe);
+                $manager->persist($mealStyle);
+            }
 
             $manager->persist($recipe);
             $manager->flush();
