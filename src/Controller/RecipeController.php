@@ -10,12 +10,15 @@ use App\Entity\Ingredient;
 use App\Entity\User;
 use App\Form\CommentType;
 use App\Form\RecipeType;
+use App\Form\SearchRecipeType;
 use App\Repository\RecipeRepository;
 use App\Repository\UserRepository;
 use function count;
 use function dump;
 use function is_null;
+use function json_encode;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -118,16 +121,43 @@ class RecipeController extends AbstractController
     /**
      * @Route("/recipes", name="recipe_index")
      */
-    public function index(RecipeRepository $repo)
+    public function index(RecipeRepository $repo, Request $request)
     {
        $recipes = $repo -> findAll();
-
-
+       $form = $this->createForm(SearchRecipeType::class);
         return $this->render('recipe/index.html.twig', [
                     'controller_name' => 'RecipeController',
                     'recipes' => $recipes,
+                    'form'=> $form->createView(),
             ]);
     }
+
+    /**
+     * @Route("/recipesSearch", name="recipe_search")
+     * @param RecipeRepository $repo
+     * @param ObjectManager $manager
+     * @return \Symfony\Component\HttpFoundation\Response;
+     */
+    public function researchRecipe(RecipeRepository $repo, ObjectManager $manager, Request $request){
+        $data = $request->request->get('search_recipe');
+        $resultRecipes = $repo->findByWord($data['searchText']);
+
+        $dataArray = [];
+        foreach ($resultRecipes as $key => $recipeData){
+            $dataArray[$key]['title'] = $recipeData->getTitle();
+            $dataArray[$key]['slug'] = $recipeData->getSlug();
+            $dataArray[$key]['coverImageName'] = $recipeData->getCoverImageName();
+            $dataArray[$key]['description'] = $recipeData->getDescription();
+        }
+
+        return new JsonResponse($dataArray);
+
+
+
+    }
+
+
+
 
     /**
      * Page edition recette
@@ -201,6 +231,7 @@ class RecipeController extends AbstractController
     public function home(RecipeRepository $recipeRepository, UserRepository $userRepository){
         $recipes = $recipeRepository->findBestRecipes(3);
         $users = $userRepository->findBestUsers(2);
+
 
         return $this->render('home/index.html.twig',[
             'recipes' => $recipes,

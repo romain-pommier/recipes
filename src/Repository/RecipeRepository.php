@@ -19,6 +19,10 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
+    /**
+     *
+     * @return mixed
+     */
     public function findBestRecipes(){
         return $this->createQueryBuilder('a')
             ->select('a as recipe, AVG(c.rating) as avgRatings')
@@ -26,6 +30,19 @@ class RecipeRepository extends ServiceEntityRepository
             ->groupBy('a')
             ->orderBy('avgRatings', 'DESC')
             ->setMaxResults(2)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * *recupère les recettes qui commence par le param
+     * @param $keyWord
+     * @return mixed
+     */
+    public function findByWord($keyWord){
+        return $this->createQueryBuilder('a')
+            ->where('a.title LIKE :key')
+            ->setParameter('key' , '%'.$keyWord.'%')
             ->getQuery()
             ->getResult();
     }

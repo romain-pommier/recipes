@@ -3,7 +3,21 @@
 {% block title %}Les recettes !{% endblock %}
 {% block body %}
 
-    <div class="container" >
+    <div class="container">
+        {{ form_start(form, {'action': path('recipe_search'), 'method': 'POST'}) }}
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.searchText) }}
+            </div>
+            <div class="col-2">
+                 {{ form_row(form.submit) }}
+            </div>
+        </div>
+
+
+
+
+        {{ form_end(form) }}
         <h1 class="my-3">Voici nos recettes</h1>
         <div class="row">
             {% for recipe in recipes %}
@@ -11,6 +25,29 @@
             {% endfor %}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script> $("form[name = 'search_recipe']").submit(function(event){
+            event.preventDefault();
+            const url = this.action;
+            console.log(url);
+            $.ajax({
+                type: "post",
+                url: url,
+                contentType: "html",
+                success: function(response) {
+                    console.log(response);
+
+                },
+                error: function(jxh,errorThrown){
+                    console.log('textmsg');
+                    console.log(errorThrown);
+                }
+            });
+
+        })
+
+    </script>
 {% endblock %}
 
 
