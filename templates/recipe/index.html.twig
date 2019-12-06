@@ -25,22 +25,33 @@
             {% endfor %}
         </div>
     </div>
+
 {% endblock %}
 {% block javascripts %}
     <script> $("form[name = 'search_recipe']").submit(function(event){
             event.preventDefault();
             const url = this.action;
-            console.log(url);
+            const keyWord = new Object();
+            console.log($("form[name = 'search_recipe'] input"));
+            $("form[name = 'search_recipe'] input").each(function(){
+                keyWord[$(this).attr("id")] = $(this).val();
+            })
+
+            console.log(url,keyWord);
             $.ajax({
-                type: "post",
+                type: "POST",
                 url: url,
-                contentType: "html",
+                dataType: 'json',
+                data: {'search_recipe':keyWord},
                 success: function(response) {
                     console.log(response);
+                    {% set search_recipe %}
+                    response;
+                    {%  endset %}
 
                 },
                 error: function(jxh,errorThrown){
-                    console.log('textmsg');
+                    console.log('erreur ajax xhr');
                     console.log(errorThrown);
                 }
             });
@@ -49,5 +60,6 @@
 
     </script>
 {% endblock %}
+
 
 

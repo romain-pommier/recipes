@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use function var_dump;
 
 
 class RecipeController extends AbstractController
@@ -135,12 +135,13 @@ class RecipeController extends AbstractController
     /**
      * @Route("/recipesSearch", name="recipe_search")
      * @param RecipeRepository $repo
-     * @param ObjectManager $manager
      * @return \Symfony\Component\HttpFoundation\Response;
      */
-    public function researchRecipe(RecipeRepository $repo, ObjectManager $manager, Request $request){
+    public function researchRecipe(RecipeRepository $repo, Request $request){
+
         $data = $request->request->get('search_recipe');
-        $resultRecipes = $repo->findByWord($data['searchText']);
+        $resultRecipes = $repo->findByWord($data['search_recipe_searchText']);
+
 
         $dataArray = [];
         foreach ($resultRecipes as $key => $recipeData){
@@ -148,6 +149,8 @@ class RecipeController extends AbstractController
             $dataArray[$key]['slug'] = $recipeData->getSlug();
             $dataArray[$key]['coverImageName'] = $recipeData->getCoverImageName();
             $dataArray[$key]['description'] = $recipeData->getDescription();
+            $dataArray[$key]['people'] = $recipeData->getPeople();
+            $dataArray[$key]['cookingTime'] = $recipeData->getCookingTime();
         }
 
         return new JsonResponse($dataArray);
