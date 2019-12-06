@@ -19,7 +19,7 @@
 
         {{ form_end(form) }}
         <h1 class="my-3">Voici nos recettes</h1>
-        <div class="row">
+        <div class="row" id="recipesContent">
             {% for recipe in recipes %}
                 {% include 'recipe/_recipe.html.twig' %}
             {% endfor %}
@@ -28,37 +28,7 @@
 
 {% endblock %}
 {% block javascripts %}
-    <script> $("form[name = 'search_recipe']").submit(function(event){
-            event.preventDefault();
-            const url = this.action;
-            const keyWord = new Object();
-            console.log($("form[name = 'search_recipe'] input"));
-            $("form[name = 'search_recipe'] input").each(function(){
-                keyWord[$(this).attr("id")] = $(this).val();
-            })
-
-            console.log(url,keyWord);
-            $.ajax({
-                type: "POST",
-                url: url,
-                dataType: 'json',
-                data: {'search_recipe':keyWord},
-                success: function(response) {
-                    console.log(response);
-                    {% set search_recipe %}
-                    response;
-                    {%  endset %}
-
-                },
-                error: function(jxh,errorThrown){
-                    console.log('erreur ajax xhr');
-                    console.log(errorThrown);
-                }
-            });
-
-        })
-
-    </script>
+    <script src="/build/js/recipeAjax.js"></script>
 {% endblock %}
 
 
