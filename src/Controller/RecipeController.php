@@ -140,8 +140,12 @@ class RecipeController extends AbstractController
     public function researchRecipe(RecipeRepository $repo, Request $request){
 
         $data = $request->request->get('search_recipe');
-        $resultRecipes = $repo->findByWord($data['search_recipe_searchText']);
-
+        if(isset($data['search_recipe_searchText'])){
+            $resultRecipes = $repo->findByWord($data['search_recipe_searchText']);
+        }
+        else{
+            $resultRecipes = $repo->findAll();
+        }
 
         $dataArray = [];
         foreach ($resultRecipes as $key => $recipeData){
@@ -152,11 +156,7 @@ class RecipeController extends AbstractController
             $dataArray[$key]['people'] = $recipeData->getPeople();
             $dataArray[$key]['cookingTime'] = $recipeData->getCookingTime();
         }
-
         return new JsonResponse($dataArray);
-
-
-
     }
 
 

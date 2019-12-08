@@ -18,6 +18,7 @@ class SearchRecipeType extends AbstractType
                     'placeholder'=> "Nom de la recette",
                 ],
                 'label' => false,
+                'required' => false
 
             ])
             ->add('submit', SubmitType::class, [
