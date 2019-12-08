@@ -6,7 +6,7 @@
 /var/
 /vendor/
 /node_modules/
-/.env/
+/.env
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
